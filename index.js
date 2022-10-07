@@ -2,7 +2,7 @@ const readline = require('readline');
 
 const validOperators = ['*', '/', '+', '-'];
 
-let values = [];
+let numbers = [];
 let operators = [];
 let tempValueString = '';
 
@@ -13,9 +13,9 @@ function isNumber(value) {
 }
 
 function calculateValue() {
-    console.log({ values, operators, tempValueString });
+    // console.log({ numbers, operators, tempValueString });
     if (operators.length === 0) {
-      console.log(`\n${values[values.length - 1]}`);
+      console.log(`\n${numbers[numbers.length - 1]}`);
     } else {
       console.log('\ncalculate here');
     }
@@ -27,42 +27,25 @@ process.stdin.setRawMode(true);
 
 process.stdin.on('keypress', (str, key) => {
   if (key.name == 'q') {
+
     console.log('\nexiting');
     process.exit(0);
   } else if (key.name == 'return') {
-    if (error) console.log(error);
-    if (tempValueString === '-') {
-      operators.push('-');
-      tempValueString = '';
-    }
-    if (tempValueString) {
-      if (isNumber(tempValueString)) {
-        values.push(parseInt(tempValueString));
-        tempValueString = '';
-      } else {
-        tempValueString = '';
-        error = 'not a valid number'
-      }
-    }
-    calculateValue();
-  } else if (key.sequence === '-') {
-    tempValueString += '-';
-    process.stdout.write(key.sequence);
-  } else if (
-    validOperators.indexOf(key.sequence) >= 0
-  ) {
-    operators.push(key.sequence);
-    process.stdout.write(key.sequence);
-  } else if (isNumber(key.sequence)) {
-    tempValueString += key.sequence;
-    process.stdout.write(key.sequence);
-  } else if (key.sequence === ' ') {
-    values.push(parseInt(tempValueString));
+
+    const values = tempValueString.split(' ');
+    values.forEach((value) => {
+      if (isNumber(value)) return numbers.push(parseInt(value));
+      value.split('').filter((v) => validOperators.indexOf(v) >= 0).forEach((v) => {
+        operators.push(v);
+      });
+    });
     tempValueString = '';
-    process.stdout.write(key.sequence);
+    calculateValue();
   } else {
-    error = `Please enter valid characters (0-9, ${operators.join(' ')})`
+
+      tempValueString += key.sequence;
+      process.stdout.write(key.sequence);
   }
 });
 
-console.log('Application successfully started.\n Please enter value to calculate:')
+console.log('Application started:\n')
