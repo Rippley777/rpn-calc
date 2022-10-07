@@ -1,0 +1,14 @@
+{
+  "name": "codechallenges",
+  "version": "1.0.0",
+  "description": "command-line reverse polish notation calculator using javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ally Rippley",
+  "license": "MIT",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
+}
