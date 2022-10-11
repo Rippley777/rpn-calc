@@ -12,10 +12,22 @@ To use this application:
    ```
 
 - Move to `rpn-calc` directory
-    ```sh
+-   ```sh
     cd rpn-calc
     ```
 
 -   ```sh
     node index.js
     ```
+
+### Description
+
+This solution is a purely node.js application using the readline package to emit keypress events as well as move the input cursor when necessary
+
+### Architecture
+
+Since this is a simple application, all logic is contained within the index.js file
+
+### Trade-offs
+
+To reduce code complexity, the user is somewhat expected to enter in information correctly. Error handling can be improved.
